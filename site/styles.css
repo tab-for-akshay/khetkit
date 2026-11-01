@@ -16,7 +16,7 @@ h2{font-size:1.2rem;margin:0 0 12px;display:flex;align-items:center;gap:10px;fle
 label{display:block;font-weight:600;font-size:.9rem;margin:10px 0 4px}
 textarea,input{width:100%;font:inherit;padding:10px;border:1px solid #d6d3d1;border-radius:10px;background:#fff}
 .row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--g2);background:var(--lg);color:var(--g);border-radius:99px;padding:6px 12px;font:inherit;font-size:.85rem;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--g2);background:var(--lg);color:var(--g);border-radius:99px;padding:6px 12px;font:inherit;font-size:.85rem;cursor:pointer}.chip-warn{border-color:#d97706;background:#fff7ed;color:#92400e}.chip-danger{border-color:#dc2626;background:#fef2f2;color:#991b1b}
 .primary{margin-top:14px;background:var(--g);color:#fff;border:0;border-radius:10px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer}.primary:disabled{opacity:.6}
 .status{color:var(--mut);min-height:1.5em}
 .summary{font-size:1.02rem}.meta{color:var(--mut);font-size:.88rem}
@@ -30,6 +30,10 @@ th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertic
 .amounts{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 16px}.amounts label{font-weight:500;display:flex;gap:6px;align-items:center;margin:0}.amounts input{width:auto}
 #pp{max-width:420px}
 .receipt{background:var(--lg);border-radius:10px;padding:10px 12px}.plan li,.led li{margin:8px 0}.pay{font-size:.82rem;color:var(--g2)}
+.sample-label{background:#fef9c3;border:1px solid #fde047;color:#713f12;border-radius:8px;padding:6px 12px;font-weight:700;font-size:.9rem;margin-bottom:8px}
+.partial-note{background:#fff7ed;border:1px solid #fdba74;color:#7c2d12;border-radius:8px;padding:8px 12px;font-weight:600;font-size:.9rem}
+.sample-item{padding:8px 0;border-bottom:1px solid var(--line)}.sample-item:last-child{border-bottom:0}
+.sample-badge{display:inline-block;background:#fef9c3;border:1px solid #fde047;color:#713f12;border-radius:99px;padding:2px 8px;font-size:.8rem;font-weight:700;margin-right:6px}
 .how li{margin:8px 0}.foot{color:var(--mut);font-size:.85rem;padding:20px 18px 40px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 details summary{cursor:pointer;font-weight:600;margin-top:8px}
