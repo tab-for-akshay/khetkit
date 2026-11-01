@@ -14,6 +14,8 @@ const EXPOSURE = ['spray','sprayed','spraying','pesticide','insecticide','fungic
 const SELF_HARM = ['suicide','suicidal','kill myself','end my life','want to die','aatmahatya','आत्महत्या','मरना चाहता'];
 const PESTICIDES = ['monocrotophos','chlorpyrifos','imidacloprid','acephate','profenofos','cypermethrin','lambda','cyhalothrin','emamectin','fipronil','thiamethoxam','carbofuran','phorate','thimet','quinalphos','dimethoate','dichlorvos','endosulfan','paraquat','glyphosate','2,4-d','atrazine','mancozeb','carbendazim','tricyclazole','hexaconazole','propiconazole','chlorantraniliprole','spinosad','malathion','triazophos','parathion','aluminium phosphide','celphos','carbaryl','acetamiprid','flubendiamide','indoxacarb','methomyl'];
 const DOSE = ['how many ml','how much ml',' ml ','ml per','dose','dosage','how much to spray','per litre','per liter','per pump','per tank','kitna'];
+const EXTRA_HARM_RE = /(which|what|kaun\s*s[aie]|कौन\s*सा|कौनसा|कोणते|कोणता)[\s\S]{0,40}(pesticide|poison|insecticide|keet\s*nashak|कीटनाशक|कीटकनाशक|जहर|ज़हर|विष|दवा|औषध)[\s\S]{0,60}(drink|drinks|drunk|swallow|die|kill|पी|पिऊ|प्याय|मर|जीव)|(pesticide|poison|insecticide|कीटनाशक|कीटकनाशक|जहर|ज़हर|विष)[\s\S]{0,40}(if\s+a\s+person\s+drinks|if\s+someone\s+drinks|to\s+die|पीने\s*से|पीकर|पिऊन|प्यायल|प्यालो|प्याले|पी\s*लि|पी\s*ली|पिया|मरने|मरण|जीव\s*दे)|(पी\s*लिया|पी\s*ली|पिया|पीने|पीकर|प्यायल|प्यायले|प्यायला|पिऊन)[\s\S]{0,40}(कीटनाशक|कीटकनाशक|जहर|ज़हर|विष|दवा|स्प्रे|औषध)|(drank|drunk|swallowed|swallow|drinking)[\s\S]{0,40}(liquid|spray|bottle|tank|chemical)|(थक\s*गया|थक\s*गई|थक\s*चुका|परेशान|हार\s*गया|कंटाळलो|कंटाळले|थकलो|tired\s+of|can'?t\s+take)[\s\S]{0,80}(pesticide|poison|कीटनाशक|कीटकनाशक|जहर|ज़हर|विष|मर|die|dying)|आत्महत्या|खुदकुशी|ख़ुदकुशी|जान\s*दे|मर\s*जाना|मरना\s*चाह|जीना\s*नहीं|जीव\s*द्याय|मरायच|आयुष्य\s*संपव|end\s+it\s+all|no\s+reason\s+to\s+live|kill\s+(myself|me)\b|want\s+to\s+die|end\s+my\s+life/iu;
+const DOSE_DEV_RE = /खुराक|डोस|किती\s*मिली|कितने\s*(ml|मिली|एमएल)|कितना\s*(ml|मिली)|मिली\s*प्रति|ml\s*प्रति|प्रति\s*(लिटर|लीटर)\s*किती|सटीक\s*मात्रा|नक्की\s*(प्रमाण|मात्रा)|क्लोरपायरीफॉस|क्लोरपायरीफास|इमिडाक्लोप्रिड|मोनोक्रोटोफॉस|मोनोक्रोटोफास|एंडोसल्फान|पैराक्वाट|पॅराक्वॅट|फोरेट|प्रोफेनोफॉस|सायपरमेथ्रिन|साइपरमेथ्रिन|ग्लायफोसेट|ग्लाइफोसेट|डायमिथोएट|एसीफेट|थायमेथोक्झाम/iu;
 const norm = s => ' ' + String(s || '').toLowerCase().replace(/\s+/g, ' ') + ' ';
 const has = (t, list) => list.some(w => t.includes(w));
 
@@ -39,9 +41,9 @@ const SAFETY_MSG = {
 function safety(text, lang) {
   const t = norm(text);
   const L = ['en','hi','mr'].includes(lang) ? lang : 'en';
-  if (has(t, SELF_HARM)) return { level: 'emergency', message: SAFETY_MSG.emergency_self_harm[L] };
+  if (has(t, SELF_HARM) || EXTRA_HARM_RE.test(text)) return { level: 'emergency', message: SAFETY_MSG.emergency_self_harm[L] };
   if (has(t, INGEST) || (has(t, SYMPTOM) && (has(t, EXPOSURE) || has(t, PESTICIDES)))) return { level: 'emergency', message: SAFETY_MSG.emergency_poisoning[L] };
-  if (has(t, PESTICIDES) || has(t, DOSE)) return { level: 'chemical', message: SAFETY_MSG.chemical[L] };
+  if (has(t, PESTICIDES) || has(t, DOSE) || DOSE_DEV_RE.test(text)) return { level: 'chemical', message: SAFETY_MSG.chemical[L] };
   return { level: 'none' };
 }
 
