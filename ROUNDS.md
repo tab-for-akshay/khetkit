@@ -18,5 +18,17 @@ Not taken, and why:
 - **Own PayPal sandbox credentials / server-side Orders v2** (Fo's #2): creating the PayPal developer account needs a PayPal account in a real person's name with phone and identity checks; Tab will not invent an identity for a payments provider, and Akshay's personal details are off-limits. The demo keeps PayPal's public sandbox client; the server-side create/capture code path is in `worker.mjs` and switches on when credentials are added.
 - **Real KVK/FPO pilot, payouts to suppliers, MoU** (critic 2): not possible honestly within the hackathon; listed as roadmap, no invented metrics.
 
-## Round 2
-(pending)
+## Round 2 (on v2, 1 Nov 2026 20:09–20:17Z)
+Reviewers: Fo by Wajo (ran the live demo: pesticide chip, kit build, funding bar), Skydive agent "Arden", open-weight critic gpt-oss-120b.
+
+Scores v2 (Fo): Technological Implementation 6.5, Design 7, Potential Impact 5.5, Innovation 6.5, Presentation 4.
+
+Taken into v3 (spec `.kiro/specs/judge-ready-v3/`, implemented with Kiro CLI, then deployed and checked live by Tab):
+1. **v2 seams fixed** (Fo): one dollar figure per sample kit (was "₹4,312 ($49.00) ($49.00)"), "1 acre" / "2 acres", no floating period in the footer.
+2. **Hindi and Marathi for real** (Fo): an English / हिंदी / मराठी selector switches every UI string; the worker writes the kit summary, reasons and expert questions in Devanagari; the fixed safety notices exist in all three languages.
+3. **What happens after funding** (Fo): a funded-kit detail view groups items by supplier type with subtotals and the status "Queued for delivery confirmation: supplier paid only after the farmer or KVK confirms delivery (planned; sandbox demo)"; the clearly labelled sample kits show a funded state on first load, so the list is never empty.
+4. **Say plainly what is live** (Fo): one line on the page and in the README: PayPal Checkout runs in the PayPal sandbox with PayPal's public sandbox client; the server-side Orders v2 path ships but needs merchant sandbox credentials.
+5. **Evidence** (Fo): README "Tests" section with the real `node --test` output; tests 16 → 20, all green.
+
+Not taken: own PayPal developer credentials (needs a real person's PayPal account and identity checks; Tab will not invent one, and Akshay's details are off-limits); invented pilot or validation quotes; cited impact figures were left out of the page until each is checked against its source.
+Next (presentation, Fo's #1): re-record the demo video on v3 and rewrite the Devpost text.

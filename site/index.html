@@ -11,19 +11,26 @@
 <body>
 <header class="top">
   <div class="wrap brand"><img src="icon.svg" alt="" width="36" height="36"><div><strong>KhetKit</strong><span>AI-built farm input kits, funded with PayPal</span></div>
-  <nav aria-label="Sections"><a href="#build">Build a kit</a><a href="#samples">Sample kits</a><a href="#ledger">Funded kits</a><a href="#how">How it works</a></nav></div>
+  <nav aria-label="Sections"><a href="#build">Build a kit</a><a href="#samples">Sample kits</a><a href="#ledger">Funded kits</a><a href="#how">How it works</a></nav>
+  <div class="lang-sel" role="group" aria-label="Language / भाषा / भाषा">
+    <button type="button" class="lang-btn lang-active" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" class="lang-btn" data-lang="hi" aria-pressed="false">हिंदी</button>
+    <button type="button" class="lang-btn" data-lang="mr" aria-pressed="false">मराठी</button>
+  </div>
+  </div>
 </header>
 <main id="main">
 <section class="hero wrap">
   <h1>A farmer describes the problem. An agent builds the right kit. Anyone can fund it.</h1>
   <p class="lede">Smallholders lose seasons to the wrong inputs bought on credit. KhetKit's agent turns a plain-language need (English, Hindi or Marathi) into a small, budgeted kit from a vetted catalogue, with a safety floor that never sells or doses chemical pesticides. Supporters fund the kit through PayPal, in full or in part, and the agent routes the money to local suppliers.</p>
   <p class="disclose">Built by Tab, an AI assistant, for team lead Akshay Wagh. PayPal runs in <b>sandbox</b> mode: no real money moves. Prices are illustrative.</p>
+  <p class="live-line meta">What is live: PayPal Checkout buttons run in the PayPal sandbox with PayPal's public sandbox client. The server-side Orders&nbsp;v2 path ships but needs merchant sandbox credentials (PAYPAL_CLIENT_ID + PAYPAL_SECRET) to activate.</p>
 </section>
 
 <section id="build" class="wrap card" aria-labelledby="b-h">
-  <h2 id="b-h"><span class="step">1</span> The farmer's need</h2>
-  <p class="meta" style="margin-bottom:8px">Try one of these one-tap examples — including two that show the safety floor:</p>
-  <div class="chips" role="group" aria-label="Examples">
+  <h2 id="b-h"><span class="step">1</span> <span data-i18n="build_h">The farmer's need</span></h2>
+  <p class="meta" data-i18n="examples_lbl" style="margin-bottom:8px">Try one of these one-tap examples — including two that show the safety floor:</p>
+  <div class="chips" role="group" data-i18n-aria="examples_aria" aria-label="Examples">
     <button type="button" class="chip" data-ex="0">Tomato leaf curl</button>
     <button type="button" class="chip" data-ex="1">टमाटर में कीड़े (Hindi)</button>
     <button type="button" class="chip" data-ex="2">Rain-fed tur, dry spell</button>
@@ -31,36 +38,37 @@
     <button type="button" class="chip chip-danger" data-ex="4" title="Safety floor demo: self-harm / poisoning message">🚨 Self-harm message (safety floor)</button>
   </div>
   <form id="need-form">
-    <label for="need">What is going wrong, or what is needed?</label>
-    <textarea id="need" rows="4" maxlength="1200" required placeholder="e.g. My 1 acre tomato is 40 days old, leaves are curling and small white insects fly up when I touch the plants."></textarea>
+    <label for="need" data-i18n="need_lbl">What is going wrong, or what is needed?</label>
+    <textarea id="need" rows="4" maxlength="1200" required placeholder="e.g. My 1 acre tomato is 40 days old, leaves are curling and small white insects fly up when I touch the plants." data-i18n="need_ph" aria-required="true"></textarea>
     <div class="row">
-      <div><label for="crop">Crop</label><input id="crop" maxlength="40" placeholder="Tomato"></div>
-      <div><label for="acres">Area (acres)</label><input id="acres" type="number" min="0.1" max="50" step="0.1" value="1"></div>
-      <div><label for="budget">Kit budget (USD)</label><input id="budget" type="number" min="5" max="500" step="1" value="60"></div>
+      <div><label for="crop" data-i18n="crop_lbl">Crop</label><input id="crop" maxlength="40" placeholder="Tomato" aria-label="Crop name"></div>
+      <div><label for="acres" data-i18n="area_lbl">Area (acres)</label><input id="acres" type="number" min="0.1" max="50" step="0.1" value="1" aria-label="Area in acres"></div>
+      <div><label for="budget" data-i18n="budget_lbl">Kit budget (USD)</label><input id="budget" type="number" min="5" max="500" step="1" value="60" aria-label="Kit budget in US dollars"></div>
     </div>
-    <button class="primary" id="go" type="submit">Build the kit</button>
+    <button class="primary" id="go" type="submit" data-i18n="go_btn">Build the kit</button>
     <p id="status" class="status" role="status" aria-live="polite"></p>
   </form>
 </section>
 
 <section id="kit" class="wrap card" hidden aria-labelledby="k-h">
-  <h2 id="k-h"><span class="step">2</span> The agent's kit <span id="kit-id" class="pill"></span></h2>
+  <h2 id="k-h"><span class="step">2</span> <span data-i18n="kit_h">The agent's kit</span> <span id="kit-id" class="pill"></span></h2>
   <div id="safety" class="safety" hidden role="alert"></div>
-  <p id="sample-label" class="sample-label" hidden>Sample — not a real farmer</p>
+  <p id="sample-label" class="sample-label" hidden></p>
   <p id="summary" class="summary"></p>
-  <div class="tablewrap"><table id="lines"><caption class="sr">Kit items</caption><thead><tr><th scope="col">Item</th><th scope="col">Why the agent chose it</th><th scope="col" class="n">Qty</th><th scope="col" class="n">Price (USD)</th><th scope="col" class="n">Line total</th></tr></thead><tbody></tbody><tfoot><tr><th scope="row" colspan="4">Kit total</th><td class="n" id="total"></td></tr></tfoot></table></div>
-  <ul id="notes" class="notes"></ul>
+  <div class="tablewrap"><table id="lines" aria-label="Kit items"><caption class="sr">Kit items</caption><thead><tr><th scope="col">Item</th><th scope="col">Why the agent chose it</th><th scope="col" class="n">Qty</th><th scope="col" class="n">Price (USD)</th><th scope="col" class="n">Line total</th></tr></thead><tbody></tbody><tfoot><tr><th scope="row" colspan="4">Kit total</th><td class="n" id="total"></td></tr></tfoot></table></div>
+  <ul id="notes" class="notes" aria-label="Kit notes"></ul>
   <details id="expert"><summary>What an expert should check</summary><ul id="eq"></ul></details>
   <p class="meta" id="meta"></p>
+  <div id="kit-detail" hidden class="kit-detail" aria-label="Fulfilment plan by supplier"></div>
 </section>
 
 <section id="fund" class="wrap card" hidden aria-labelledby="f-h">
-  <h2 id="f-h"><span class="step">3</span> Fund it with PayPal</h2>
-  <div class="progress" aria-label="Funding progress"><span id="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></span></div>
+  <h2 id="f-h"><span class="step">3</span> <span data-i18n="fund_h">Fund it with PayPal</span></h2>
+  <div class="progress" data-i18n-aria="fund_progress" aria-label="Funding progress"><span id="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></span></div>
   <p id="funded" class="meta"></p>
   <p id="partial-note" class="partial-note" hidden></p>
-  <div class="amounts" role="radiogroup" aria-label="Funding amount">
-    <label><input type="radio" name="amt" value="full" checked> The whole remaining kit <b id="amt-full"></b></label>
+  <div class="amounts" role="radiogroup" data-i18n-aria="fund_amounts" aria-label="Funding amount">
+    <label><input type="radio" name="amt" value="full" checked> <span data-i18n="fund_whole">The whole remaining kit</span> <b id="amt-full"></b></label>
     <label><input type="radio" name="amt" value="10"> $10</label>
     <label><input type="radio" name="amt" value="25"> $25</label>
   </div>
@@ -69,35 +77,35 @@
 </section>
 
 <section id="done" class="wrap card" hidden aria-labelledby="d-h">
-  <h2 id="d-h"><span class="step">4</span> Receipt and the agent's fulfilment plan</h2>
+  <h2 id="d-h"><span class="step">4</span> <span data-i18n="done_h">Receipt and the agent's fulfilment plan</span></h2>
   <p id="receipt" class="receipt"></p>
-  <ol id="plan" class="plan"></ol>
+  <ol id="plan" class="plan" aria-label="Fulfilment plan"></ol>
 </section>
 
 <section id="samples" class="wrap card" aria-labelledby="s-h">
-  <h2 id="s-h">Sample kits — open and fund in sandbox</h2>
-  <p class="meta">These are clearly labelled sample kits, not real farmers. They use the same <code>/api/order</code> flow as a real kit so judges can test the full PayPal sandbox path without filling in the form.</p>
-  <ol id="sample-list" class="led"><li class="meta">Loading samples…</li></ol>
+  <h2 id="s-h" data-i18n="samples_h">Sample kits — open and fund in sandbox</h2>
+  <p class="meta" data-i18n="samples_meta">These are clearly labelled sample kits, not real farmers. They use the same <code>/api/order</code> flow as a real kit so judges can test the full PayPal sandbox path without filling in the form.</p>
+  <ol id="sample-list" class="led" aria-label="Sample kits"><li class="meta">Loading samples…</li></ol>
 </section>
 
 <section id="ledger" class="wrap card" aria-labelledby="l-h">
-  <h2 id="l-h">Recently funded kits (sandbox)</h2>
-  <ol id="led" class="led"><li class="meta">Loading…</li></ol>
+  <h2 id="l-h" data-i18n="ledger_h">Recently funded kits (sandbox)</h2>
+  <ol id="led" class="led" aria-label="Recently funded kits"><li class="meta">Loading…</li></ol>
 </section>
 
 <section id="how" class="wrap card" aria-labelledby="h-h">
-  <h2 id="h-h">How it works</h2>
+  <h2 id="h-h" data-i18n="how_h">How it works</h2>
   <ol class="how">
     <li><b>Need → kit.</b> A large language model (gpt-oss-120b on Groq, with Qwen and Gemini as fallbacks) reads the need and picks 2–7 items, only from a 25-item vetted catalogue, sized to the area and budget, with a one-line reason each.</li>
     <li><b>Safety floor, in code, after the model.</b> Unknown items are dropped, quantities capped, the budget enforced. A poisoning or self-harm message gets emergency numbers and no kit. A pesticide name or a dose question adds an expert visit; KhetKit never sells or doses chemical pesticides. Anything sprayed adds a safety kit. Use the <span class="chip chip-warn" style="font-size:.8rem;padding:2px 8px;cursor:default">⚠ Pesticide dose</span> or <span class="chip chip-danger" style="font-size:.8rem;padding:2px 8px;cursor:default">🚨 Self-harm</span> example buttons above to see it fire.</li>
     <li><b>Funding through PayPal.</b> PayPal Checkout with an itemised order (each kit line is a PayPal item). Supporters can fund part of a kit; the progress bar and "partially funded" note update after each payment, and the kit stays open until it is fully funded.</li>
     <li><b>Fulfilment.</b> Once funded, the agent groups lines by supplier type (KVK, licensed seed dealer, FPO shop) and prepares the supplier payouts, released on delivery confirmation.</li>
   </ol>
-  <p class="meta">Not agronomic advice: the kit is a starting point an extension worker or KVK should confirm. Source code: <a href="https://github.com/tab-for-akshay/khetkit">github.com/tab-for-akshay/khetkit</a>.</p>
+  <p class="meta">Not agronomic advice: the kit is a starting point an extension worker or KVK should confirm. Source code: <a href="https://github.com/tab-for-akshay/khetkit">github.com/tab-for-akshay/khetkit</a></p>
 </section>
 </main>
 <footer class="wrap foot">
-  KhetKit · PayPal AI Hackathon 2026 entry · team lead Akshay Wagh · built by Tab, an AI assistant<br>
+  KhetKit · PayPal AI Hackathon 2026 entry · team lead Akshay Wagh · <span>Built by Tab, an AI assistant, for team lead Akshay Wagh</span><br>
   <span class="meta">₹ figures at ₹88 per US$, approximate, 1 Nov 2026. Prices are illustrative; PayPal runs in sandbox mode.</span>
 </footer>
 <script type="module" src="app.js"></script>

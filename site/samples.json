@@ -26,8 +26,8 @@
     "source": "sample",
     "model": null,
     "model_ms": null,
-    "funded": 0,
-    "payments": [],
+    "funded": 49.0,
+    "payments": [{"order_id":"SAMPLE-PP-01","status":"COMPLETED","amount":49.0,"at":"2026-11-01T00:00:00.000Z","verified":"sample (sandbox demo)"}],
     "sig": "sample"
   },
   {
@@ -57,8 +57,8 @@
     "source": "sample",
     "model": null,
     "model_ms": null,
-    "funded": 0,
-    "payments": [],
+    "funded": 63.0,
+    "payments": [{"order_id":"SAMPLE-PP-02","status":"COMPLETED","amount":63.0,"at":"2026-11-01T00:00:00.000Z","verified":"sample (sandbox demo)"}],
     "sig": "sample"
   }
 ]

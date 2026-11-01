@@ -39,3 +39,15 @@ th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertic
 details summary{cursor:pointer;font-weight:600;margin-top:8px}
 @media (max-width:640px){.row{grid-template-columns:1fr 1fr}.row div:first-child{grid-column:1/-1}.brand nav{margin-left:0;width:100%}.hero{padding-top:20px}
  table thead{display:none}table,tbody,tr,td{display:block;width:100%}tr{border-bottom:1px solid var(--line);padding:6px 0}td{border:0;padding:3px 0}td.n{text-align:left}tfoot tr{display:flex;justify-content:space-between}tfoot th,tfoot td{width:auto}}
+
+/* Language selector */
+.lang-sel{display:flex;gap:4px;margin-left:auto}.lang-btn{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:4px 10px;font:inherit;font-size:.8rem;cursor:pointer;opacity:.75}.lang-btn:hover{opacity:1}.lang-btn.lang-active,.lang-btn[aria-pressed="true"]{opacity:1;background:rgba(255,255,255,.2);border-color:#fff;font-weight:700}
+/* Live-line notice */
+.live-line{background:#f0fdf4;border:1px solid #bbf7d0;color:#14532d;border-radius:8px;padding:8px 12px;margin-top:8px}
+/* Funded tag in sample list */
+.funded-tag{display:inline-block;background:#dcfce7;border:1px solid #86efac;color:#166534;border-radius:99px;padding:1px 8px;font-size:.78rem;font-weight:600;margin-left:4px}
+/* Kit detail / fulfilment by supplier */
+.kit-detail{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}.detail-h{font-size:1rem;font-weight:700;margin:0 0 6px}.detail-status{font-size:.85rem;color:var(--mut);margin:0 0 10px;font-style:italic}
+.supplier-group{margin-bottom:12px}.supplier-name{font-weight:700;font-size:.93rem;display:flex;justify-content:space-between;align-items:baseline;gap:8px}.supplier-sub{font-size:.85rem;color:var(--g);white-space:nowrap}.supplier-items{margin:4px 0 0 0;padding-left:18px;font-size:.88rem;color:#292524}.supplier-items li{margin:2px 0}
+/* 360 px — ensure nothing breaks at narrow width */
+@media (max-width:400px){.brand{gap:8px;padding:8px 10px}.lang-sel{gap:2px}.lang-btn{padding:3px 7px;font-size:.75rem}.chips{gap:6px}.amounts{flex-direction:column;gap:8px}}

@@ -57,6 +57,10 @@ flowchart TD
 - `site/money.mjs` is a pure ES module (no DOM) imported by both the front end and the test suite.
 - Sample kits are static JSON (`site/samples.json`) and use the same `/api/order` → `/api/capture` flow.
 
+## What is live
+
+PayPal Checkout buttons run in the PayPal sandbox with PayPal's public sandbox client. The server-side Orders v2 path ships but needs merchant sandbox credentials (`PAYPAL_CLIENT_ID` + `PAYPAL_SECRET`) to activate.
+
 ## PayPal integration
 - **PayPal JavaScript SDK (Buttons)**, `intent=capture`, USD, sandbox.
 - **Orders v2**: when `PAYPAL_CLIENT_ID` + `PAYPAL_SECRET` (sandbox REST app) are set, the Worker itself creates the order (`POST /v2/checkout/orders` with `PayPal-Request-Id` idempotency) and captures it (`POST /v2/checkout/orders/{id}/capture`) — the agent transacts server-side. Without them the demo uses PayPal's public sandbox client id (`sb`) and creates the same itemised order in the browser.
@@ -84,6 +88,37 @@ npx wrangler dev worker.mjs --assets . \
 ```
 API: `POST /api/plan {need,crop,acres,budget}` · `POST /api/order {kit_id,kit,amount}` · `POST /api/capture {kit_id,kit,order_id}` · `GET /api/ledger` · `GET /api/config`.
 Tests: `node --test test/`.
+
+## Tests
+
+Run with `node --test test/site.test.mjs`. All tests pass on Node 22.
+
+```
+TAP version 13
+ok 1 - index has title, viewport, disclosure, local assets
+ok 2 - catalogue has no chemical pesticides and sane prices
+ok 3 - worker carries the safety floor and no secrets
+ok 4 - money.mjs: INR_PER_USD is 88
+ok 5 - money.mjs: inr() formats USD to ₹ with USD beside it
+ok 6 - money.mjs: inr() handles zero and fractional amounts
+ok 7 - money.mjs: progress() returns correct funded/remaining/pct
+ok 8 - money.mjs: progress() clamps funded to [0, total]
+ok 9 - money.mjs: progress() handles zero total without division by zero
+ok 10 - worker safety floor: self-harm returns emergency, no kit
+ok 11 - worker safety floor: pesticide dose returns chemical level with kvk_consult in kit
+ok 12 - worker safety floor: normal need has safety.level=none
+ok 13 - samples.json: two sample kits exist and are clearly labelled
+ok 14 - index.html: INR footer note present
+ok 15 - index.html: safety floor example chips present
+ok 16 - money.mjs exists and is importable as an ES module
+ok 17 - money.mjs: plural() — singular, plural, fractional
+ok 18 - money.mjs: groupBySupplier() groups lines and sums subtotals
+ok 19 - i18n: STR table has en/hi/mr keys and t() helper returns strings
+ok 20 - index.html: what-is-live line present
+# tests 20
+# pass 20
+# fail 0
+```
 
 ## Honest limits
 - Prices are illustrative; catalogue items are generic categories, not endorsed products.

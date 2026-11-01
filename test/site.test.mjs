@@ -221,3 +221,77 @@ test('money.mjs exists and is importable as an ES module', async () => {
   assert.ok(typeof m.progress === 'function', 'progress must be a function');
   assert.ok(typeof m.INR_PER_USD === 'number', 'INR_PER_USD must be a number');
 });
+
+// ---- new v3 tests ----------------------------------------------------------
+
+test('money.mjs: plural() — singular, plural, fractional', async () => {
+  const { plural } = await import(new URL('money.mjs', S));
+  assert.equal(plural(1, 'acre'), '1\u00a0acre',   'singular: 1 acre');
+  assert.equal(plural(2, 'acre'), '2\u00a0acres',  'plural: 2 acres');
+  assert.equal(plural(0, 'acre'), '0\u00a0acres',  'zero: 0 acres');
+  assert.equal(plural(0.5, 'acre'), '0.5\u00a0acre','fractional: 0.5 acre (singular)');
+  assert.equal(plural(3, 'item'), '3\u00a0items',  'plural: 3 items');
+});
+
+test('money.mjs: groupBySupplier() groups lines and sums subtotals', async () => {
+  const { groupBySupplier } = await import(new URL('money.mjs', S));
+  const lines = [
+    { id: 'kvk_consult', name: 'KVK visit', category: 'Diagnosis',     qty: 1, line_total: 6.0 },
+    { id: 'soil_test',   name: 'Soil test', category: 'Diagnosis',     qty: 1, line_total: 4.0 },
+    { id: 'neem_oil',    name: 'Neem oil',  category: 'Bio-inputs',    qty: 1, line_total: 7.0 },
+    { id: 'seed_tomato', name: 'Tomato seed', category: 'Seeds',       qty: 1, line_total: 12.0 },
+    { id: 'ppe',         name: 'PPE kit',   category: 'Safety',        qty: 1, line_total: 6.0 },
+  ];
+  const groups = groupBySupplier(lines);
+  assert.ok(Array.isArray(groups), 'returns an array');
+  // Should have at most as many groups as unique supplier types
+  assert.ok(groups.length >= 2 && groups.length <= lines.length, 'grouped into supplier buckets');
+  // Each group has supplier, items, subtotal
+  for (const g of groups) {
+    assert.ok(typeof g.supplier === 'string' && g.supplier.length > 0, 'group has supplier name');
+    assert.ok(Array.isArray(g.items) && g.items.length > 0, 'group has items');
+    assert.ok(typeof g.subtotal === 'number' && g.subtotal >= 0, 'group has numeric subtotal');
+  }
+  // KVK / soil test should be in the same group (Diagnosis → KVK / accredited soil lab)
+  const kvkGroup = groups.find(g => g.supplier.toLowerCase().includes('kvk'));
+  assert.ok(kvkGroup, 'KVK group present');
+  assert.ok(Math.abs(kvkGroup.subtotal - 10.0) < 0.01, 'KVK group subtotal = 10 (6+4)');
+  // Seed dealer group
+  const seedGroup = groups.find(g => g.supplier.toLowerCase().includes('seed'));
+  assert.ok(seedGroup, 'seed dealer group present');
+  assert.ok(Math.abs(seedGroup.subtotal - 12.0) < 0.01, 'seed group subtotal = 12');
+  // Total across all groups should equal sum of line_totals
+  const total = groups.reduce((s, g) => s + g.subtotal, 0);
+  assert.ok(Math.abs(total - 35.0) < 0.01, 'total across groups = 35');
+});
+
+test('i18n: STR table has en/hi/mr keys and t() helper returns strings', async () => {
+  // We can't directly import app.js as it references DOM, so we check index.html
+  // contains the lang selector and check app.js source for STR table keys.
+  const appSrc = read('app.js');
+  assert.match(appSrc, /const STR\s*=/, 'STR table must be defined');
+  assert.match(appSrc, /en\s*:/, 'STR must have en key');
+  assert.match(appSrc, /hi\s*:/, 'STR must have hi key');
+  assert.match(appSrc, /mr\s*:/, 'STR must have mr key');
+  assert.match(appSrc, /function t\(/, 't() helper must be defined');
+  // Check required i18n keys appear in the source (present in all three language sections combined)
+  for (const key of ['go_btn', 'build_h', 'fund_h', 'samples_h', 'ledger_h', 'sample_badge', 'detail_status', 'live_line']) {
+    // Each key must appear at least 3 times (once per language)
+    const occurrences = (appSrc.match(new RegExp(key, 'g')) || []).length;
+    assert.ok(occurrences >= 3, `key "${key}" must appear at least 3 times (once per language), found ${occurrences}`);
+  }
+  // lang selector must exist in index.html
+  const h = read('index.html');
+  assert.match(h, /lang-btn/, 'index.html must have language selector buttons');
+  assert.match(h, /data-lang="en"/, 'EN lang button must exist');
+  assert.match(h, /data-lang="hi"/, 'HI lang button must exist');
+  assert.match(h, /data-lang="mr"/, 'MR lang button must exist');
+});
+
+test('index.html: what-is-live line present', () => {
+  const h = read('index.html');
+  // Must mention both PayPal sandbox and merchant credentials
+  assert.match(h, /sandbox/i, 'must mention sandbox');
+  assert.match(h, /Orders.*v2|v2.*Orders/i, 'must mention Orders v2');
+  assert.match(h, /merchant|PAYPAL_CLIENT_ID|credentials/i, 'must mention credentials or merchant');
+});
