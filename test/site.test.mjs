@@ -295,3 +295,8 @@ test('index.html: what-is-live line present', () => {
   assert.match(h, /Orders.*v2|v2.*Orders/i, 'must mention Orders v2');
   assert.match(h, /merchant|PAYPAL_CLIENT_ID|credentials/i, 'must mention credentials or merchant');
 });
+
+import { execFileSync } from 'node:child_process';
+test('site/app.js parses (no broken escapes)', () => {
+  execFileSync(process.execPath, ['--check', new URL('../site/app.js', import.meta.url).pathname]);
+});
