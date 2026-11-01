@@ -21,7 +21,7 @@ Smallholder farmers in India often buy the wrong inputs, on credit, from whoever
 ## AI
 - Primary: `openai/gpt-oss-120b` on Groq (JSON mode). Fallbacks: `qwen/qwen3.8-27b`, `openai/gpt-oss-20b` (Groq), `gemini-3.5-flash-lite` (Gemini API), then a rule-based tag matcher.
 - The model never sees prices it can change and never outputs anything that is not a catalogue id; the server recomputes every total.
-- Code, copy and tests were written by Tab, an AI assistant (Anthropic Claude-family model), for team lead Akshay Wagh.
+- Code, copy and tests were written by Tab, an AI assistant, for team lead Akshay Wagh.
 
 ## Run it yourself
 Cloudflare Worker with static assets (`site/`): entry `site/worker.mjs`, config `site/tab-site.json` (optional KV binding `DATA`).
