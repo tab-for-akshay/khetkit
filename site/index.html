@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KhetKit · AI-built farm input kits, funded with PayPal</title>
+<meta name="description" content="An AI procurement agent turns a farmer's problem into a safe, budgeted kit of farm inputs; supporters fund it through PayPal; the agent routes the money to local suppliers.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap brand"><img src="icon.svg" alt="" width="36" height="36"><div><strong>KhetKit</strong><span>AI-built farm input kits, funded with PayPal</span></div>
+  <nav aria-label="Sections"><a href="#build">Build a kit</a><a href="#ledger">Funded kits</a><a href="#how">How it works</a></nav></div>
+</header>
+<main id="main">
+<section class="hero wrap">
+  <h1>A farmer describes the problem. An agent builds the right kit. Anyone can fund it.</h1>
+  <p class="lede">Smallholders lose seasons to the wrong inputs bought on credit. KhetKit's agent turns a plain-language need (English, Hindi or Marathi) into a small, budgeted kit from a vetted catalogue, with a safety floor that never sells or doses chemical pesticides. Supporters fund the kit through PayPal, in full or in part, and the agent routes the money to local suppliers.</p>
+  <p class="disclose">Built by Tab, an AI assistant, for team lead Akshay Wagh. PayPal runs in <b>sandbox</b> mode: no real money moves. Prices are illustrative.</p>
+</section>
+
+<section id="build" class="wrap card" aria-labelledby="b-h">
+  <h2 id="b-h"><span class="step">1</span> The farmer's need</h2>
+  <div class="chips" role="group" aria-label="Examples">
+    <button type="button" class="chip" data-ex="0">Tomato leaf curl</button>
+    <button type="button" class="chip" data-ex="1">टमाटर में कीड़े (Hindi)</button>
+    <button type="button" class="chip" data-ex="2">Rain-fed tur, dry spell</button>
+    <button type="button" class="chip" data-ex="3">Wants a pesticide dose</button>
+  </div>
+  <form id="need-form">
+    <label for="need">What is going wrong, or what is needed?</label>
+    <textarea id="need" rows="4" maxlength="1200" required placeholder="e.g. My 1 acre tomato is 40 days old, leaves are curling and small white insects fly up when I touch the plants."></textarea>
+    <div class="row">
+      <div><label for="crop">Crop</label><input id="crop" maxlength="40" placeholder="Tomato"></div>
+      <div><label for="acres">Area (acres)</label><input id="acres" type="number" min="0.1" max="50" step="0.1" value="1"></div>
+      <div><label for="budget">Kit budget (USD)</label><input id="budget" type="number" min="5" max="500" step="1" value="60"></div>
+    </div>
+    <button class="primary" id="go" type="submit">Build the kit</button>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </form>
+</section>
+
+<section id="kit" class="wrap card" hidden aria-labelledby="k-h">
+  <h2 id="k-h"><span class="step">2</span> The agent's kit <span id="kit-id" class="pill"></span></h2>
+  <div id="safety" class="safety" hidden></div>
+  <p id="summary" class="summary"></p>
+  <div class="tablewrap"><table id="lines"><caption class="sr">Kit items</caption><thead><tr><th scope="col">Item</th><th scope="col">Why the agent chose it</th><th scope="col" class="n">Qty</th><th scope="col" class="n">Line</th></tr></thead><tbody></tbody><tfoot><tr><th scope="row" colspan="3">Kit total</th><td class="n" id="total"></td></tr></tfoot></table></div>
+  <ul id="notes" class="notes"></ul>
+  <details id="expert"><summary>What an expert should check</summary><ul id="eq"></ul></details>
+  <p class="meta" id="meta"></p>
+</section>
+
+<section id="fund" class="wrap card" hidden aria-labelledby="f-h">
+  <h2 id="f-h"><span class="step">3</span> Fund it with PayPal</h2>
+  <div class="progress" aria-label="Funding progress"><span id="bar"></span></div>
+  <p id="funded" class="meta"></p>
+  <div class="amounts" role="radiogroup" aria-label="Amount">
+    <label><input type="radio" name="amt" value="full" checked> The whole remaining kit <b id="amt-full"></b></label>
+    <label><input type="radio" name="amt" value="10"> $10</label>
+    <label><input type="radio" name="amt" value="25"> $25</label>
+  </div>
+  <div id="pp"></div>
+  <p class="meta" id="pp-mode"></p>
+</section>
+
+<section id="done" class="wrap card" hidden aria-labelledby="d-h">
+  <h2 id="d-h"><span class="step">4</span> Receipt and the agent's fulfilment plan</h2>
+  <p id="receipt" class="receipt"></p>
+  <ol id="plan" class="plan"></ol>
+</section>
+
+<section id="ledger" class="wrap card" aria-labelledby="l-h">
+  <h2 id="l-h">Recently funded kits (sandbox)</h2>
+  <ol id="led" class="led"><li class="meta">Loading…</li></ol>
+</section>
+
+<section id="how" class="wrap card" aria-labelledby="h-h">
+  <h2 id="h-h">How it works</h2>
+  <ol class="how">
+    <li><b>Need → kit.</b> A large language model (gpt-oss-120b on Groq, with Qwen and Gemini as fallbacks) reads the need and picks 2–7 items, only from a 25-item vetted catalogue, sized to the area and budget, with a one-line reason each.</li>
+    <li><b>Safety floor, in code, after the model.</b> Unknown items are dropped, quantities capped, the budget enforced. A poisoning or self-harm message gets emergency numbers and no kit. A pesticide name or a dose question adds an expert visit; KhetKit never sells or doses chemical pesticides. Anything sprayed adds a safety kit.</li>
+    <li><b>Funding through PayPal.</b> PayPal Checkout with an itemised order (each kit line is a PayPal item). Supporters can fund part of a kit; the agent tracks the balance.</li>
+    <li><b>Fulfilment.</b> Once funded, the agent groups lines by supplier type (KVK, licensed seed dealer, FPO shop) and prepares the supplier payouts, released on delivery confirmation.</li>
+  </ol>
+  <p class="meta">Not agronomic advice: the kit is a starting point an extension worker or KVK should confirm. Source code: <a href="https://github.com/tab-for-akshay/khetkit">github.com/tab-for-akshay/khetkit</a>.</p>
+</section>
+</main>
+<footer class="wrap foot">KhetKit · PayPal AI Hackathon 2026 entry · team lead Akshay Wagh · built by Tab, an AI assistant</footer>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,401 @@
+[
+ {
+  "id": "soil_test",
+  "name": "Soil test at an accredited lab (Soil Health Card style: NPK, pH, EC, OC, micronutrients)",
+  "category": "Diagnosis",
+  "unit": "1 sample",
+  "price": 4.0,
+  "tags": [
+   "soil",
+   "fertility",
+   "yield",
+   "all"
+  ],
+  "note": "Test before you buy fertiliser: it decides how much is really needed.",
+  "max_qty": 6
+ },
+ {
+  "id": "kvk_consult",
+  "name": "KVK / agri-expert field visit voucher",
+  "category": "Diagnosis",
+  "unit": "1 visit",
+  "price": 6.0,
+  "tags": [
+   "disease",
+   "pest",
+   "virus",
+   "diagnosis",
+   "chemical",
+   "all"
+  ],
+  "note": "A human expert confirms the problem before any chemical is used. Required when the kit stops at a chemical decision.",
+  "max_qty": 6
+ },
+ {
+  "id": "yellow_traps",
+  "name": "Yellow sticky traps (pack of 25)",
+  "category": "Pest monitoring",
+  "unit": "pack",
+  "price": 5.0,
+  "tags": [
+   "whitefly",
+   "aphid",
+   "jassid",
+   "leaf curl",
+   "sucking pest",
+   "vegetable",
+   "cotton"
+  ],
+  "note": "Monitors and mass-traps whiteflies/aphids; no spraying.",
+  "max_qty": 6
+ },
+ {
+  "id": "blue_traps",
+  "name": "Blue sticky traps (pack of 25)",
+  "category": "Pest monitoring",
+  "unit": "pack",
+  "price": 5.0,
+  "tags": [
+   "thrips",
+   "chilli",
+   "onion",
+   "flower"
+  ],
+  "note": "For thrips monitoring.",
+  "max_qty": 6
+ },
+ {
+  "id": "pheromone_kit",
+  "name": "Pheromone traps + lures for fruit borer / pink bollworm (set of 5)",
+  "category": "Pest monitoring",
+  "unit": "set",
+  "price": 9.0,
+  "tags": [
+   "borer",
+   "fruit borer",
+   "bollworm",
+   "tomato",
+   "cotton",
+   "brinjal",
+   "caterpillar"
+  ],
+  "note": "Catches male moths; tells you when the pest is building up.",
+  "max_qty": 6
+ },
+ {
+  "id": "neem_oil",
+  "name": "Neem oil based botanical (azadirachtin, 1 L)",
+  "category": "Bio-inputs",
+  "unit": "litre",
+  "price": 7.0,
+  "tags": [
+   "sucking pest",
+   "whitefly",
+   "aphid",
+   "mite",
+   "organic",
+   "caterpillar"
+  ],
+  "note": "Botanical repellent; follow the label. Not a cure for virus diseases.",
+  "max_qty": 6
+ },
+ {
+  "id": "trichoderma",
+  "name": "Trichoderma viride bio-fungicide (1 kg)",
+  "category": "Bio-inputs",
+  "unit": "kg",
+  "price": 4.0,
+  "tags": [
+   "wilt",
+   "root rot",
+   "damping off",
+   "soil-borne",
+   "nursery",
+   "seed treatment"
+  ],
+  "note": "Seed/soil treatment against soil-borne fungi; mix in compost as per label.",
+  "max_qty": 6
+ },
+ {
+  "id": "pseudomonas",
+  "name": "Pseudomonas fluorescens bio-agent (1 kg)",
+  "category": "Bio-inputs",
+  "unit": "kg",
+  "price": 4.0,
+  "tags": [
+   "blast",
+   "blight",
+   "leaf spot",
+   "rice",
+   "seed treatment",
+   "wilt"
+  ],
+  "note": "Seed treatment / soil application bio-agent.",
+  "max_qty": 6
+ },
+ {
+  "id": "beauveria",
+  "name": "Beauveria bassiana bio-insecticide (1 kg)",
+  "category": "Bio-inputs",
+  "unit": "kg",
+  "price": 5.0,
+  "tags": [
+   "caterpillar",
+   "borer",
+   "whitefly",
+   "hopper",
+   "organic"
+  ],
+  "note": "Fungus that infects insects; works best in humid weather.",
+  "max_qty": 6
+ },
+ {
+  "id": "biofert",
+  "name": "Bio-fertiliser trio: Rhizobium/Azotobacter + PSB + KSB (3 x 1 L)",
+  "category": "Nutrition",
+  "unit": "set",
+  "price": 8.0,
+  "tags": [
+   "fertility",
+   "pulses",
+   "legume",
+   "yield",
+   "organic",
+   "all"
+  ],
+  "note": "Cuts chemical fertiliser need; crop-specific strain matters.",
+  "max_qty": 6
+ },
+ {
+  "id": "vermicompost",
+  "name": "Vermicompost (50 kg bag)",
+  "category": "Nutrition",
+  "unit": "bag",
+  "price": 6.0,
+  "tags": [
+   "fertility",
+   "organic",
+   "vegetable",
+   "soil",
+   "all"
+  ],
+  "note": "Organic matter for soil health.",
+  "max_qty": 6
+ },
+ {
+  "id": "micronutrient",
+  "name": "Crop micronutrient mixture (Zn/B/Fe, 1 kg, as per state formulation)",
+  "category": "Nutrition",
+  "unit": "kg",
+  "price": 5.0,
+  "tags": [
+   "yellowing",
+   "zinc",
+   "boron",
+   "deficiency",
+   "flower drop",
+   "fruit crack"
+  ],
+  "note": "Use only if deficiency is confirmed (soil test / symptoms checked by expert).",
+  "max_qty": 6
+ },
+ {
+  "id": "zinc_sulphate",
+  "name": "Zinc sulphate (5 kg)",
+  "category": "Nutrition",
+  "unit": "bag",
+  "price": 5.0,
+  "tags": [
+   "zinc",
+   "rice",
+   "wheat",
+   "khaira",
+   "yellowing"
+  ],
+  "note": "Common zinc correction in rice-wheat systems; soil test first.",
+  "max_qty": 6
+ },
+ {
+  "id": "seed_tomato",
+  "name": "Certified tomato seed, ToLCV-tolerant hybrid (10 g)",
+  "category": "Seeds",
+  "unit": "packet",
+  "price": 12.0,
+  "tags": [
+   "tomato",
+   "leaf curl",
+   "resowing",
+   "nursery"
+  ],
+  "note": "Tolerant (not immune) to leaf curl virus; buy only certified/truthfully-labelled seed with a bill.",
+  "max_qty": 6
+ },
+ {
+  "id": "seed_chilli",
+  "name": "Certified chilli hybrid seed (10 g)",
+  "category": "Seeds",
+  "unit": "packet",
+  "price": 10.0,
+  "tags": [
+   "chilli",
+   "nursery"
+  ],
+  "note": "Certified seed with bill.",
+  "max_qty": 6
+ },
+ {
+  "id": "seed_pulse",
+  "name": "Certified pulse seed, local recommended variety (5 kg)",
+  "category": "Seeds",
+  "unit": "bag",
+  "price": 9.0,
+  "tags": [
+   "pulses",
+   "gram",
+   "tur",
+   "moong",
+   "resowing",
+   "drought"
+  ],
+  "note": "Use the state-recommended variety for your district.",
+  "max_qty": 6
+ },
+ {
+  "id": "nursery_net",
+  "name": "Insect-proof nursery net, 40 mesh (10 m)",
+  "category": "Protection",
+  "unit": "roll",
+  "price": 8.0,
+  "tags": [
+   "nursery",
+   "whitefly",
+   "leaf curl",
+   "virus",
+   "vegetable"
+  ],
+  "note": "Keeps vectors off seedlings: the cheapest leaf-curl prevention.",
+  "max_qty": 6
+ },
+ {
+  "id": "mulch",
+  "name": "Silver-black plastic mulch film (1 roll, ~400 m)",
+  "category": "Water & soil",
+  "unit": "roll",
+  "price": 18.0,
+  "tags": [
+   "water",
+   "weed",
+   "vegetable",
+   "whitefly",
+   "mulch"
+  ],
+  "note": "Saves water, suppresses weeds, reflective side repels some sucking pests.",
+  "max_qty": 1
+ },
+ {
+  "id": "drip_kit",
+  "name": "Drip irrigation starter kit (0.25 acre)",
+  "category": "Water & soil",
+  "unit": "kit",
+  "price": 40.0,
+  "tags": [
+   "water",
+   "drought",
+   "irrigation",
+   "vegetable",
+   "orchard"
+  ],
+  "note": "Saves water; government drip subsidy may apply (PMKSY).",
+  "max_qty": 1
+ },
+ {
+  "id": "rain_gauge",
+  "name": "Plastic rain gauge",
+  "category": "Water & soil",
+  "unit": "piece",
+  "price": 3.0,
+  "tags": [
+   "water",
+   "rain",
+   "drought",
+   "all"
+  ],
+  "note": "Simple record for irrigation decisions.",
+  "max_qty": 6
+ },
+ {
+  "id": "sprayer",
+  "name": "Knapsack sprayer, 16 L, with nozzles",
+  "category": "Equipment",
+  "unit": "piece",
+  "price": 22.0,
+  "tags": [
+   "spray",
+   "equipment"
+  ],
+  "note": "Needed for any bio-input spray.",
+  "max_qty": 1
+ },
+ {
+  "id": "ppe",
+  "name": "Spray safety kit: gloves, mask, goggles, apron",
+  "category": "Safety",
+  "unit": "kit",
+  "price": 6.0,
+  "tags": [
+   "spray",
+   "safety",
+   "chemical",
+   "all"
+  ],
+  "note": "Mandatory with any spraying. Always added when a spray item is in the kit.",
+  "max_qty": 6
+ },
+ {
+  "id": "crates",
+  "name": "Plastic harvest crates (set of 5)",
+  "category": "Post-harvest",
+  "unit": "set",
+  "price": 15.0,
+  "tags": [
+   "harvest",
+   "tomato",
+   "fruit",
+   "vegetable",
+   "storage"
+  ],
+  "note": "Cuts bruising losses vs. gunny bags.",
+  "max_qty": 1
+ },
+ {
+  "id": "tarpaulin",
+  "name": "Tarpaulin sheet 6x8 m (grain drying / rain cover)",
+  "category": "Post-harvest",
+  "unit": "piece",
+  "price": 12.0,
+  "tags": [
+   "harvest",
+   "grain",
+   "rain",
+   "storage",
+   "drying"
+  ],
+  "note": "Protects harvested produce from rain.",
+  "max_qty": 6
+ },
+ {
+  "id": "hermetic_bag",
+  "name": "Hermetic grain storage bags (pack of 5)",
+  "category": "Post-harvest",
+  "unit": "pack",
+  "price": 10.0,
+  "tags": [
+   "storage",
+   "grain",
+   "pulses",
+   "weevil"
+  ],
+  "note": "Stops storage pests without chemicals.",
+  "max_qty": 6
+ }
+]
