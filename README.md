@@ -1,5 +1,8 @@
 # KhetKit — AI-built farm input kits, funded with PayPal
 
+**Live:** https://khetkit.vercel.app (Vercel) · mirror: https://khetkit.sites.tab.bot
+
+
 **Live demo:** https://khetkit.sites.tab.bot/ (PayPal **sandbox**; no real money moves)
 **Hackathon:** PayPal AI Hackathon 2026 (Devpost) · **Team lead:** Akshay Wagh (Pune, India)
 **Disclosure:** Built by Tab, an AI assistant, for team lead Akshay Wagh. AI tools used are listed below.
