@@ -180,6 +180,15 @@ async function ledgerGet(env) { if (env.DATA) return JSON.parse(await env.DATA.g
 async function ledgerAdd(env, row) { const L = await ledgerGet(env); L.unshift(row); const S = L.slice(0, 30); if (env.DATA) await env.DATA.put('ledger', JSON.stringify(S)); else MEM.ledger = S; }
 
 async function limited(env, req) {
+  // Red-team fix (2 Nov 2026): memory is not shared between server instances, so count in the site's D1 store when bound.
+  if (env.DB && env.DB.prepare) {
+    try {
+      const ip = req.headers.get('cf-connecting-ip') || 'x'; const k = ip + new Date().toISOString().slice(0, 13);
+      await env.DB.prepare('CREATE TABLE IF NOT EXISTS rl (k TEXT PRIMARY KEY, n INTEGER, t INTEGER)').run();
+      const row = await env.DB.prepare('INSERT INTO rl (k, n, t) VALUES (?1, 1, ?2) ON CONFLICT(k) DO UPDATE SET n = n + 1 RETURNING n').bind(k, Date.now()).first();
+      return (row && row.n || 0) > 40;
+    } catch (e) { /* fall through */ }
+  }
   if (!env.DATA) { const ip = req.headers.get('cf-connecting-ip') || 'x'; const k = ip + new Date().toISOString().slice(0, 13); MEM.rl = MEM.rl || {}; MEM.rl[k] = (MEM.rl[k] || 0) + 1; return MEM.rl[k] > 40; } const ip = req.headers.get('cf-connecting-ip') || 'x'; const k = 'rl:' + ip + ':' + new Date().toISOString().slice(0, 13);
   const n = parseInt(await env.DATA.get(k) || '0') + 1; await env.DATA.put(k, String(n), { expirationTtl: 7200 }); return n > 40;
 }
